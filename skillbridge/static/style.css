@@ -1,0 +1,288 @@
+:root {
+  --ink: #0f172a;
+  --muted: #64748b;
+  --paper: #f8fafc;
+  --card-bg: #ffffff;
+  --line: #e2e8f0;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-subtle: #eff6ff;
+  
+  /* Status Colors */
+  --m: #10b981; /* Matched: Emerald */
+  --m-bg: #ecfdf5;
+  --m-border: #a7f3d0;
+  
+  --p: #f59e0b; /* Partial: Amber */
+  --p-bg: #fffbeb;
+  --p-border: #fde68a;
+  
+  --x: #ef4444; /* Missing: Rose/Red */
+  --x-bg: #fef2f2;
+  --x-border: #fecaca;
+}
+
+body {
+  font-family: "Public Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background-color: #f1f5f9;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 45%),
+    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.07) 0px, transparent 40%),
+    radial-gradient(at 50% 100%, rgba(226, 232, 240, 0.6) 0px, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Typography & Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.text-muted {
+  color: var(--muted) !important;
+}
+
+/* Navigation */
+.sb-nav {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+.sb-nav .navbar-brand {
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  font-size: 1.25rem;
+}
+
+.sb-nav .nav-link {
+  font-weight: 500;
+  color: #334155;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.sb-nav .nav-link:hover {
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+/* Card Containers */
+.sb-card {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sb-card-sm {
+  padding: 1rem 1.25rem;
+}
+
+.job-card {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s ease;
+}
+
+.job-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+/* Buttons */
+.btn-primary {
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent-hover);
+  --bs-btn-hover-border-color: var(--accent-hover);
+  --bs-btn-active-bg: var(--accent-hover);
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-hover-border-color: var(--accent);
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.btn-outline-secondary, .btn-secondary {
+  border-radius: 8px;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  border-radius: 8px;
+  border-color: #cbd5e1;
+  padding: 0.55rem 0.85rem;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
+}
+
+/* Percentage & Indicators */
+.pct {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.pct-lg {
+  font-size: 2.2rem;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+/* Segment Bar: Match composition */
+.segbar {
+  display: flex;
+  height: 9px;
+  margin: 0.65rem 0 0.45rem;
+  background: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.segbar span {
+  display: block;
+  height: 100%;
+}
+
+.seg-m { background: var(--m); }
+.seg-p { background: var(--p); }
+.seg-x { background: var(--x); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .segbar span {
+    transition: width 0.35s ease-in-out;
+  }
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.legend .dot {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+
+/* Modern Chip Badges */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.35rem 0.45rem 0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.chip-m {
+  background-color: var(--m-bg);
+  color: #065f46;
+  border-color: var(--m-border);
+}
+
+.chip-p {
+  background-color: var(--p-bg);
+  color: #92400e;
+  border-color: var(--p-border);
+}
+
+.chip-x {
+  background-color: var(--x-bg);
+  color: #991b1b;
+  border-color: var(--x-border);
+}
+
+.chip small {
+  opacity: 0.85;
+  font-weight: normal;
+  margin-left: 0.3rem;
+}
+
+/* Empty State & Callout Box */
+.empty {
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  padding: 2.5rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.gapbox {
+  margin-top: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #fff1f2;
+  border-left: 4px solid var(--x);
+  border-radius: 6px;
+  font-size: 0.92rem;
+  color: #881337;
+}
+
+/* Prose for descriptions */
+.prose {
+  max-width: 75ch;
+  line-height: 1.65;
+}
+
+select.lv-0 {
+  color: var(--muted);
+}
+
+/* Footer Styling */
+.sb-footer {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% from "_macros.html" import segbar, course_links %}
+{% block title %}Dashboard | SkillBridge{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">Welcome, {{ current_user['name'] }} 👋</h1>
+    <p class="text-muted mb-0 small">Here is your personalized career readiness and skill gap analysis.</p>
+  </div>
+  {% if has_skills %}
+  <a class="btn btn-outline-primary btn-sm px-3" href="{{ url_for('profile') }}">Edit Profile & Skills</a>
+  {% endif %}
+</div>
+
+{% if not has_skills %}
+  <div class="empty sb-card text-center py-5">
+    <div class="fs-1 mb-2">📋</div>
+    <h2 class="h5 fw-bold mb-2">Build Your Student Profile</h2>
+    <p class="text-muted mb-3 mx-auto" style="max-width: 540px;">
+      Select your technical skills and proficiency levels across software, electronics, and core engineering domains. We will calculate your match percentage for real job openings and highlight skill gaps.
+    </p>
+    <a class="btn btn-primary px-4" href="{{ url_for('profile') }}">Setup Profile & Skills</a>
+  </div>
+{% else %}
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="sb-card h-100">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h5 fw-bold mb-0">Top Recommended Jobs</h2>
+        <a class="small fw-semibold" href="{{ url_for('jobs') }}">View All Jobs →</a>
+      </div>
+      <p class="small text-muted mb-3">Ranked using TF-IDF text similarity and skill coverage percentage.</p>
+      
+      <div class="job-list">
+        {% for r in top %}
+        <div class="job-card">
+          <div class="d-flex justify-content-between align-items-start gap-3">
+            <div>
+              <a class="fw-bold text-dark text-decoration-none fs-6" href="{{ url_for('job', job_id=r.id) }}">{{ r.title }}</a>
+              <div class="small text-muted">{{ r.company }} • {{ r.location }}</div>
+            </div>
+            <div class="text-end">
+              <span class="badge bg-primary fs-6">{{ r.match_pct }}%</span>
+              <div class="small text-muted" style="font-size:0.75rem;">Match</div>
+            </div>
+          </div>
+          {{ segbar(r.analysis) }}
+          <div class="d-flex justify-content-between align-items-center small mt-2">
+            <span class="text-muted">
+              {% if r.analysis.missing %}
+                <span class="text-danger fw-semibold">Missing:</span> {{ r.analysis.missing[:3]|join(", ") }}
+              {% else %}
+                <span class="text-success fw-semibold">✓ Meets all required skills!</span>
+              {% endif %}
+            </span>
+            <a href="{{ url_for('job', job_id=r.id) }}" class="small fw-semibold">Details →</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="vstack gap-4">
+      <div class="sb-card">
+        <h2 class="h5 fw-bold mb-1">Key Skill Gaps to Focus On</h2>
+        <p class="small text-muted mb-3">Most frequently missing skills across your top 10 job matches.</p>
+        <ul class="list-unstyled mb-0">
+          {% for skill, n in focus %}
+          <li class="pb-3 mb-3 border-bottom">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="fw-bold text-dark">{{ skill }}</span>
+              <span class="badge bg-light text-secondary border">Needed in {{ n }} of top 10</span>
+            </div>
+            <div class="small text-muted">
+              Recommended courses: {{ course_links(skill, courses) }}
+            </div>
+          </li>
+          {% else %}
+          <li class="text-success small fw-semibold">No missing skills in your top matches. Great job!</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="sb-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 fw-bold mb-0">Application Tracker Summary</h2>
+          <a class="small fw-semibold" href="{{ url_for('tracker') }}">Manage →</a>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          {% for s in statuses %}
+          <div class="border rounded-3 p-2 px-3 text-center flex-fill bg-light">
+            <div class="small text-muted">{{ s }}</div>
+            <div class="fs-5 fw-bold text-dark">{{ counts.get(s, 0) }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

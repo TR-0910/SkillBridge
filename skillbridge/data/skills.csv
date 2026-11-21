@@ -1,0 +1,29 @@
+category,skill,aliases
+Programming & Software,Python,python3
+Programming & Software,Java,core java;java programming
+Programming & Software,C / C++,c;c++;cpp;c language;c programming
+Programming & Software,Data Structures & Algorithms,dsa;data structures;algorithms
+Programming & Software,SQL & Databases,sql;mysql;postgresql;database management
+Programming & Software,Web Development,html;css;javascript;react;node.js;full stack
+Electronics & Embedded (ECE),Embedded C,embedded-c;embedded systems;firmware
+Electronics & Embedded (ECE),Microcontrollers,8051;arm cortex;pic;microcontroller;stm32
+Electronics & Embedded (ECE),VLSI Design,vlsi;asic;rtl design;semiconductor
+Electronics & Embedded (ECE),Verilog / VHDL,verilog;vhdl;hdl
+Electronics & Embedded (ECE),MATLAB / Simulink,matlab;simulink
+Electronics & Embedded (ECE),PCB Design,pcb;schematic;kicad;altium;eagle
+Electronics & Embedded (ECE),Digital Electronics,digital logic;logic design;circuit design;circuit analysis
+IoT & Smart Systems,Internet of Things (IoT),iot;internet of things
+IoT & Smart Systems,Arduino & Raspberry Pi,arduino;raspberry pi;esp8266;esp32
+IoT & Smart Systems,Sensors & Interfacing,sensors;sensor interfacing;actuators
+IoT & Smart Systems,Wireless Communication,bluetooth;ble;zigbee;wi-fi;rf communication
+AI & Data Science,Machine Learning,ml;machine learning
+AI & Data Science,Deep Learning,neural networks;deep learning
+AI & Data Science,Data Analytics,data analysis;power bi;excel;pandas
+AI & Data Science,Computer Vision,image processing;computer vision;opencv
+Networks & Cloud,Computer Networks,networking;computer networks;tcp/ip
+Networks & Cloud,Linux,linux;unix;shell scripting
+Networks & Cloud,Cloud Computing,aws;azure;cloud
+Networks & Cloud,Cybersecurity,cyber security;information security;network security
+Core & Professional,Git & GitHub,git;github;version control
+Core & Professional,Technical Communication,communication;presentation skills
+Core & Professional,Problem Solving,analytical skills;problem-solving

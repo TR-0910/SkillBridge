@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% from "_macros.html" import course_links %}
+{% block title %}Application Tracker | SkillBridge{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">Job Application Tracker</h1>
+    <p class="text-muted small mb-0">Track your recruitment pipeline, interviews, and personalized feedback for target roles.</p>
+  </div>
+  <a class="btn btn-outline-primary btn-sm" href="{{ url_for('jobs') }}">Browse More Jobs</a>
+</div>
+
+{% if not items %}
+  <div class="empty sb-card text-center py-5">
+    <div class="fs-1 mb-2">📁</div>
+    <h2 class="h5 fw-bold mb-2">No Applications Tracked Yet</h2>
+    <p class="text-muted mb-3">You haven't saved or applied to any job roles yet.</p>
+    <a class="btn btn-primary" href="{{ url_for('jobs') }}">Explore Available Jobs</a>
+  </div>
+{% else %}
+  <div class="vstack gap-3">
+    {% for it in items %}
+    <div class="sb-card">
+      <form method="post" action="{{ url_for('update_application', app_id=it.id) }}" class="row g-3 align-items-center">
+        <div class="col-md-4">
+          <h2 class="h6 fw-bold mb-1">
+            <a class="text-dark text-decoration-none" href="{{ url_for('job', job_id=it.job_id) }}">{{ it.title }}</a>
+          </h2>
+          <div class="small text-muted">{{ it.company }} • {{ it.location }}</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label small text-muted mb-1" for="st-{{ it.id }}">Application Status</label>
+          <select class="form-select form-select-sm" id="st-{{ it.id }}" name="status">
+            {% for s in statuses %}<option {{ "selected" if s == it.status }}>{{ s }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="col-6 col-md-3">
+          <label class="form-label small text-muted mb-1" for="nt-{{ it.id }}">Notes / Follow-up</label>
+          <input class="form-control form-control-sm" id="nt-{{ it.id }}" name="notes" value="{{ it.notes }}" placeholder="e.g., Round 1 completed, awaiting interview...">
+        </div>
+        <div class="col-md-2 text-md-end pt-md-3">
+          <button class="btn btn-sm btn-primary w-100">Update Status</button>
+        </div>
+      </form>
+
+      {% if it.status == "Rejected" %}
+      <div class="gapbox mt-3">
+        <div class="fw-bold mb-1">💡 Feedback & Upskilling Recommendation:</div>
+        {% if it.analysis.missing or it.analysis.partial %}
+          <p class="mb-2 small">Before applying to similar roles, prioritize mastering these skill gaps:</p>
+          <ul class="mb-0 small">
+          {% for s in it.analysis.missing + it.analysis.partial %}
+            <li>
+              <strong>{{ s }}</strong>{% if s in it.analysis.partial %} <span class="text-warning-emphasis">(Improve from Beginner level)</span>{% else %} <span class="text-danger">(Missing skill)</span>{% endif %}:
+              {{ course_links(s, courses) }}
+            </li>
+          {% endfor %}
+          </ul>
+        {% else %}
+          <div class="small">You meet 100% of the listed technical skills! Focus on strengthening project portfolio, problem solving, and technical interview preparation.</div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

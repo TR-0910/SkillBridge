@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Student Profile & Skills | SkillBridge{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 fw-bold mb-1">Student Profile & Skill Inventory</h1>
+    <p class="text-muted mb-0 small">
+      Select your proficiency levels across engineering domains (CS, ECE, IoT, and Core). Intermediate and Advanced count as full match; Beginner counts as partial match.
+    </p>
+  </div>
+</div>
+
+<form method="post" class="vstack gap-4">
+  <div class="sb-card">
+    <h2 class="h5 fw-bold mb-3">Academic & Department Details</h2>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small" for="education">Degree, Branch & Semester</label>
+        <input class="form-control" id="education" name="education" value="{{ user['education'] }}" placeholder="e.g., B.E. in ECE / CSE, 6th Sem, VTU">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small" for="interests">Career Aspirations & Interests</label>
+        <input class="form-control" id="interests" name="interests" value="{{ user['interests'] }}" placeholder="e.g., Embedded Systems, VLSI, Software Development, IoT Solutions">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small" for="projects">Academic & Mini Projects</label>
+        <textarea class="form-control" id="projects" name="projects" rows="3" placeholder="e.g., Smart Irrigation using IoT & ESP32, 8051 Microcontroller Traffic Controller, SkillBridge Web App...">{{ user['projects'] }}</textarea>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small" for="certificates">Certifications & Technical Workshops</label>
+        <textarea class="form-control" id="certificates" name="certificates" rows="3" placeholder="e.g., NPTEL Embedded Systems, Coursera Python, Texas Instruments Workshop on Microcontrollers...">{{ user['certificates'] }}</textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-card">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <h2 class="h5 fw-bold mb-1">Technical Skills & Proficiency Levels</h2>
+        <p class="small text-muted mb-0">Indicate your proficiency in skills across Software, Electronics, IoT, and AI domains.</p>
+      </div>
+    </div>
+    
+    <div class="mt-4">
+      {% for cat, skills in groups.items() %}
+      <fieldset class="mb-4">
+        <legend class="h6 fw-bold text-primary border-bottom pb-2 mb-3">{{ cat }}</legend>
+        <div class="row g-3">
+        {% for s in skills %}
+          <div class="col-6 col-md-4 col-lg-3">
+            <label class="form-label small fw-semibold mb-1 text-dark text-truncate d-block" for="s-{{ loop.index }}-{{ cat|replace(' ','') }}" title="{{ s }}">{{ s }}</label>
+            <select class="form-select form-select-sm lv-{{ mine.get(s, 0) }}" id="s-{{ loop.index }}-{{ cat|replace(' ','') }}" name="skill::{{ s }}">
+              {% for v, label in levels.items() %}
+                <option value="{{ v }}" {{ "selected" if mine.get(s, 0) == v }}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+        </div>
+      </fieldset>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-primary px-4 py-2 fw-semibold">Save Profile & Recalculate Matches</button>
+  </div>
+</form>
+{% endblock %}
