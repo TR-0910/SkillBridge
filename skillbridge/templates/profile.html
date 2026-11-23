@@ -16,19 +16,19 @@
     <div class="row g-3">
       <div class="col-md-6">
         <label class="form-label fw-semibold small" for="education">Degree, Branch & Semester</label>
-        <input class="form-control" id="education" name="education" value="{{ user['education'] }}" placeholder="e.g., B.E. in ECE / CSE, 6th Sem, VTU">
+        <input class="form-control" id="education" name="education" value="{{ user['education'] }}" placeholder="e.g., B.E. in ECE / CSE">
       </div>
       <div class="col-md-6">
         <label class="form-label fw-semibold small" for="interests">Career Aspirations & Interests</label>
-        <input class="form-control" id="interests" name="interests" value="{{ user['interests'] }}" placeholder="e.g., Embedded Systems, VLSI, Software Development, IoT Solutions">
+        <input class="form-control" id="interests" name="interests" value="{{ user['interests'] }}" placeholder="e.g., Embedded Systems, Software Development">
       </div>
       <div class="col-md-6">
         <label class="form-label fw-semibold small" for="projects">Academic & Mini Projects</label>
-        <textarea class="form-control" id="projects" name="projects" rows="3" placeholder="e.g., Smart Irrigation using IoT & ESP32, 8051 Microcontroller Traffic Controller, SkillBridge Web App...">{{ user['projects'] }}</textarea>
+        <textarea class="form-control" id="projects" name="projects" rows="3" placeholder="e.g.,Vertical Course Projects, Hackathon...">{{ user['projects'] }}</textarea>
       </div>
       <div class="col-md-6">
         <label class="form-label fw-semibold small" for="certificates">Certifications & Technical Workshops</label>
-        <textarea class="form-control" id="certificates" name="certificates" rows="3" placeholder="e.g., NPTEL Embedded Systems, Coursera Python, Texas Instruments Workshop on Microcontrollers...">{{ user['certificates'] }}</textarea>
+        <textarea class="form-control" id="certificates" name="certificates" rows="3" placeholder="e.g., NPTEL, Coursera, Udemy...">{{ user['certificates'] }}</textarea>
       </div>
     </div>
   </div>
